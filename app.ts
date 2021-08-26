@@ -1,11 +1,16 @@
 import express from 'express';
+import { Database } from './database';
 
 const app: express.Application = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.post('/api/v1/score', async (req: express.Request, res: express.Response) =>
+
+let database = new Database;
+database.connect('ts_mongo_tdd');
+
+app.post('/api/v1/user', async (req: express.Request, res: express.Response) =>
 {
   let body: any = req.body;
 
@@ -19,14 +24,23 @@ app.post('/api/v1/score', async (req: express.Request, res: express.Response) =>
     res.status(400).json({ error: 'Email is required.' });
   };
 
-  await UserDatabase.save(body.name, body.score);
-  let responseMessage = `The body was: ${body}!`;
+  let data = 
+  {
+    name: body.name,
+    email: body.email
+  };
+
+  await database.add(data, "Users")
+
+  let responseMessage = `Added user ${data.name} to the database`;
   res.json(responseMessage);
 });
 
-app.get('/api/v1/leaderboard', async (req: express.Request, res: express.Response) =>
+app.get('/api/v1/users', async (req: express.Request, res: express.Response) =>
 {
-  await UserDatabase.getUsers();
+
+  res.json("Hello");
 });
+
 
 export { app };
