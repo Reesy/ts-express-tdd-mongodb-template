@@ -1,4 +1,4 @@
-# ts-express-tdd-template
+# ts-express-tdd-mongodb-template
 A template backend typescript project using REST with express and supertest for TDD
 
 This project comes preset for vscode, the included ```.vscode/launch.json``` allows for running of the app with debugging as well as running of mocha tests with debugging. 
