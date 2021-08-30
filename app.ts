@@ -22,9 +22,9 @@ let mongoClient = new MongoClient(url, options);
 
 mongoClient.connect();
 
-let database = mongoClient.db("ts_mongo_tdd_users");
+let database = mongoClient.db(config.dbname);
 
-const users = database.collection<User>("users");
+const users = database.collection<User>(config.dbcollection);
 
 
 app.post('/api/v1/user', async (req: express.Request, res: express.Response) =>

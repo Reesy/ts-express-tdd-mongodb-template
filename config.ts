@@ -5,4 +5,6 @@ export class config {
     public static dbpassword: string = 'blue';
     public static dbhost: string = 'localhost';
     public static dbport: number = 27017;
+    public static dbname: string = "ts_mongo_tdd_users";
+    public static dbcollection: string = "users";
 }

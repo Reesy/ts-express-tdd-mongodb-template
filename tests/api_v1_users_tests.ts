@@ -2,11 +2,19 @@
  * Tests for the API v1 user endpoints.
  */
 
- import { agent as request } from "supertest"; 
- import { expect } from 'chai';
- import { describe, it, after } from 'mocha';
- import { app, mongoClient } from "../app";
- 
+//read test env
+
+import { agent as request } from "supertest"; 
+import { expect } from 'chai';
+import { describe, it, after } from 'mocha';
+import { config } from "../config";
+
+config.dbname = 'TEST_DB';
+config.dbcollection = 'notUsers';
+
+import { app, mongoClient } from "../app";
+
+
  const api = "/api/v1/users"; 
  
  const insertApi = "/api/v1/user";
@@ -78,5 +86,7 @@
  //write an afterall hook to close the database connection
 after(async () => 
 {
-   await mongoClient.close();
+    //I want to drop the database after all the tests are done
+    await mongoClient.db(config.dbname).dropDatabase();
+    await mongoClient.close();
 });
