@@ -93,4 +93,4 @@ app.delete('/api/v1/user/:email', async (req: express.Request, res: express.Resp
   return;
 });
 
-export { app };
+export { app, mongoClient };
