@@ -12,6 +12,7 @@ pipeline {
         sh '''#!/bin/bash
 
 npm i'''
+        nodejs 'Node 16'
       }
     }
 
