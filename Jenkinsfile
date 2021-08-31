@@ -12,7 +12,13 @@ pipeline {
         sh '''#!/bin/bash
 
 npm i'''
-        nodejs 'Node 16'
+        nodejs('Node 16') {
+          ws(dir: '/') {
+            sh 'npm i'
+          }
+
+        }
+
       }
     }
 
