@@ -8,9 +8,20 @@ pipeline {
     }
 
     stage('Install') {
-      steps {
-        nodejs('Node 16') {
-          sh 'npm i'
+      parallel {
+        stage('Install') {
+          steps {
+            nodejs('Node 16') {
+              sh 'npm i'
+            }
+
+          }
+        }
+
+        stage('compose up') {
+          steps {
+            sh 'docker-compose up'
+          }
         }
 
       }
