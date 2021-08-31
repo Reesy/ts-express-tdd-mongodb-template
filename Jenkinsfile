@@ -9,14 +9,8 @@ pipeline {
 
     stage('Install') {
       steps {
-        sh '''#!/bin/bash
-
-npm i'''
         nodejs('Node 16') {
-          ws(dir: '/') {
-            sh 'npm i'
-          }
-
+          sh 'npm i'
         }
 
       }
