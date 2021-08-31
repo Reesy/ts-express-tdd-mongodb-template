@@ -1,18 +1,21 @@
-import { app } from './app';
+import { Collection } from 'mongodb';
+import { APIComponent } from './APIComponent';
 import { config } from './config';
-
-//read prod env and set properties.
+import { DatabaseComponent } from './DatabaseComponent';
+import { User } from './interfaces/user';
 
 
 let main = async () => {
+  
+  let database = new DatabaseComponent(config);
+  await database.connect();
 
-   // await Database.connect("admin");
+  let userCollection: Collection<User> = await database.getCollection('users');
 
-    app.listen(config.port, () =>
-    {
-      console.log(`Server listening on port ${config.port}`);
-    });
-    
+  let api = new APIComponent(config, userCollection);
+  api.init();
+  api.start();
+
 };
 
 main();
