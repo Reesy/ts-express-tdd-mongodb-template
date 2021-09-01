@@ -11,7 +11,7 @@ pipeline {
       parallel {
         stage('Install') {
           steps {
-            nodejs('Node 16') {
+            nodejs(nodeJSInstallationName: 'Node 16') {
               sh 'npm i'
             }
 
@@ -20,7 +20,7 @@ pipeline {
 
         stage('compose up') {
           steps {
-            sh 'docker ps'
+            sh 'docker-compose up'
           }
         }
 
@@ -29,7 +29,7 @@ pipeline {
 
     stage('Build') {
       steps {
-        nodejs('Node 16') {
+        nodejs(nodeJSInstallationName: 'Node 16') {
           sh 'npm run build'
         }
 
