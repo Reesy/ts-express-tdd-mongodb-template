@@ -1,12 +1,13 @@
+import { config } from './config';
 import { Collection } from 'mongodb';
 import { APIComponent } from './APIComponent';
-import { config } from './config';
 import { DatabaseComponent } from './DatabaseComponent';
 import { User } from './interfaces/user';
 
 
 let main = async () => {
   
+
   let database = new DatabaseComponent(config);
   await database.connect();
 

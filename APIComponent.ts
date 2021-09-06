@@ -24,14 +24,22 @@ class APIComponent
     {
       let body = req.body;
 
-      if (typeof(body.name) === "undefined" )
+      if (typeof(body.name) === "undefined" || body.name === "")
       {
         res.status(400).json({ error: 'Name is required.' });
+        return;
       };
 
-      if (typeof(body.email) === "undefined" )
+      if (typeof(body.email) === "undefined" || body.email === "")
       {
         res.status(400).json({ error: 'Email is required.' });
+        return;
+      };
+
+      if (!this.validateEmail(body.email))
+      {
+        res.status(400).json({ error: 'Email is not valid.' });
+        return;
       };
 
       let cursor = await this.users.find<User>({ email: body.email }).collation({ locale: 'en', strength: 2 });; 
@@ -71,6 +79,13 @@ class APIComponent
     this.app.delete('/api/v1/user/:email', async (req: express.Request, res: express.Response) =>
     {
       let email = req.params.email;
+
+      if (!this.validateEmail(email))
+      {
+        res.status(400).json({ error: 'Email is not valid.' });
+        return;
+      };
+
       let cursor = await this.users.find<User>({ email: email }).collation({ locale: 'en', strength: 2 });; 
       let savedUsers: User[] = await cursor.toArray();
     
@@ -80,11 +95,19 @@ class APIComponent
         return;
       };
 
+
       await this.users.deleteMany({ email: email }, {collation: { locale: 'en', strength: 2 }});
 
       res.json(`Deleted account with email '${email}' from the database`);
       return;
     });
+  };
+
+  private validateEmail(email: string): boolean
+  {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+
   };
 
   public async start()
