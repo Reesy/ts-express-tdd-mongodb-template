@@ -39,7 +39,8 @@ pipeline {
     stage('Test') {
       steps {
         nodejs('Node 16') {
-          sh 'npm run test'
+          sh '''MONGO_HOST=$HOST_IP
+npm run test'''
         }
 
       }
