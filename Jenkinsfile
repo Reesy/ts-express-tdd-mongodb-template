@@ -20,7 +20,7 @@ pipeline {
 
         stage('compose up') {
           steps {
-            sh 'docker-compose up -d'
+            sh 'docker-compose up -d --remove-orphans'
           }
         }
 
@@ -42,6 +42,13 @@ pipeline {
           sh 'MONGO_HOST=$HOST_IP npm run test'
         }
 
+      }
+    }
+
+    stage('Clean up') {
+      steps {
+        sh 'docker-compose down'
+        cleanWs(cleanWhenAborted: true, cleanWhenFailure: true, cleanWhenNotBuilt: true, cleanWhenSuccess: true)
       }
     }
 
