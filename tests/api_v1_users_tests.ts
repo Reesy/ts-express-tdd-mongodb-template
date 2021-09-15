@@ -26,7 +26,7 @@ before(async () =>
 {   
     try
     {
-        userCollection = await database.getCollection('users');
+        userCollection = await database.getCollection('testUsers');
         await database.connect().catch((error) => {console.log('Failed to connect to db', error)});
         //We don't need to start the application, just init. Super test will handle starting and stopping the express app
         apiComponent  = new APIComponent(config, userCollection);
