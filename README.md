@@ -16,6 +16,21 @@ MONGO_HOST = localhost
 
 Any of these settings set in the environment will take precedence over a .env file entry
 
+## Cloning: 
+
+Through CLI: 
+
+```
+git clone https://github.com/Reesy/ts-express-tdd-mongodb-template
+```
+
+Graphically (this will also generate a project on your profile) 
+
+![image](https://user-images.githubusercontent.com/5430483/159441936-843331ee-820d-4dad-af03-f1a1d31b3383.png)
+
+
+
+
 ## Commands:
 
 Install: (requires node and npm)
