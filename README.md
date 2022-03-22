@@ -85,4 +85,8 @@ Content-Length: xy
     "email": "TimSmith@OtherEmailProvider.jp"
 ]
 ```
+## Todo: 
+- [x]  Create
+- [x]  Read
+- [ ]  Wire up removable/delete to the API 
 
